@@ -17,16 +17,30 @@
 */
 package org.superbiz.struts;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import java.util.Properties;
 
+@Component
 public class AddUser {
 
-    private int id;
+    private long id;
     private String firstName;
     private String lastName;
     private String errorMessage;
+    private UserService userService;
+
+    public AddUser(long id, String firstName, String lastName, String errorMessage, UserService userService) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.errorMessage = errorMessage;
+        this.userService = userService;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -52,14 +66,23 @@ public class AddUser {
         this.errorMessage = errorMessage;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
+    public UserService getUserService() {
+        return userService;
+    }
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
+    @Transactional
     public String execute() {
 
         try {

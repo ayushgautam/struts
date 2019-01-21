@@ -11,3 +11,4 @@ $ mvn clean package
 ```
 $ cf push struts-example -p target/struts.war
 ```
+# struts
